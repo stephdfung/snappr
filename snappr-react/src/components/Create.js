@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import Footer from './Footer'
+import axios from 'axios';
 
 class Create extends Component {
   constructor() {
@@ -41,16 +41,6 @@ class Create extends Component {
       })
       
     this.clearPicture();
-
-    // let video = this.refs.video;
-
-    // if (navigator.mediaDevies && navigator.mediaDevies.getUserMedia) {
-    //   console.log('true')
-    //   navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
-    //   video.src = window.URL.createObjectURL(stream);
-    //   video.play();
-    //   })
-    // }
   }
 
   clearPicture() {
@@ -71,10 +61,6 @@ class Create extends Component {
   }
 
   snapPicture() {
-    // let context = canvas.getContext('2d');
-    // let canvas = this.refs.canvas;
-
-    // context.drawImage(video,0,0,640,480);
 
     const canvas = document.querySelector('canvas');  
     const context = canvas.getContext('2d');  
@@ -90,14 +76,26 @@ class Create extends Component {
     photo.setAttribute('src', data); 
   }
 
+  handleSaveClick() {
+    const canvas = document.querySelector('canvas');
+    
+    let data = {
+      canvas_img: canvas.toDataURL('image/png')
+    }
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:3001/pics',
+      data
+    }).then( res => {
+      console.log(res.data);
+    }).catch( err => console.log(err))
+  }
+
 
   render() {
     return(
-      // <div className="create-new">
-      //   <video id="video" ref="video" width="640" height="480" autoPlay></video>
-      //   <button id="snap" ref="snap" onClick={this.snapPicture}>snap</button>
-      //   <canvas id="canvas" ref="canvas" width="640" height="480"></canvas>
-      // </div>
+
       <div className="capture">
 
         <div className="camera">

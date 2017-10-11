@@ -9,6 +9,7 @@ class Footer extends Component {
   render() {
     return(
       <div>
+        this is the footer
       </div>
     )
   }
