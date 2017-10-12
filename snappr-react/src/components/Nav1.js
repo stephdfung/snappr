@@ -5,14 +5,15 @@ const Nav = () => {
   return (
       <div className="nav">
 
-        <div className="lock-up">
+        {/* <div className="lock-up"> */}
           <Link to={`/`}> <h5>snappr</h5> </Link>
-        </div>
+        {/* </div> */}
 
         <div className="nav-buttons-align">
           <Link to={"/gallery"} className="nav-button">Gallery</Link>
-          {/* <Link to={"/auth/login"} className="nav-button">Login </Link> */}
-          {/* <Link to={"/auth/register"} className="nav-button">Register</Link> */}
+          <Link to={"/snap"} className="nav-button">Snap</Link>
+          <Link to={"/auth/login"} className="nav-button">Login </Link>
+          <Link to={"/auth/register"} className="nav-button">Register</Link>
         </div>
 
       </div>

@@ -13,23 +13,45 @@ import Landing from './Components/Landing';
 import Gallery from './Components/Gallery';
 import ShowDestroy from './Components/ShowDestroy';
 
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register';
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: {},
-      loggedIn: false,
+      loggedIn: true,
+      header: {},
+
     }
+
+    this.currentUser = this.currentUser.bind(this)
+    this.Nav = this.Nav.bind(this)
+    this.updateHeader = this.updateHeader.bind(this)
   }
 
   Nav({children}) {
     return (
       <div>
-        {/* {this.state.loggedIn?<Nav2 />:<Nav1 user={this.state.user} />} {children} */}
-        <Nav1/>
+        {this.state.loggedIn ? <Nav1 user={this.state.user} /> : <Nav2 user={this.state.user}/>} {children}
       </div>
     )
+  }
+
+
+  currentUser(res) {
+    this.setState({
+      user: res.data,
+      loggedIn: true
+    })
+  }
+
+  updateHeader(res) {
+    this.setState({
+      header: res.header,
+    })
   }
 
 
@@ -42,8 +64,11 @@ class App extends Component {
 
           <Route exact path="/" component={Landing} />
           <Route exact path="/snap" component={Create} />
-          <Route exact path="/snap/:id" render = {props => <ShowDestroy user={this.state.user} /> } />
+          <Route exact path="/snap/:id" render={(props) => <ShowDestroy {...props} currentUser={this.currentUser} /> } />
           <Route exact path="/gallery" component={Gallery} />
+
+          <Route exact path="/auth/login" render={(props) => <Login {...props} currentUser={this.currentUser} updateHeader={this.updateHeader}/> } />
+          <Route exact path="/auth/register" render={(props) => <Register {...props} currentUser={this.currentUser} updateHeader={this.updateHeader}/> } />
         
           <Route path="/" component={Footer} />
         </div>

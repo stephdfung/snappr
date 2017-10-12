@@ -30,7 +30,7 @@ class Gallery extends Component {
   showGallery(pic) {
     return(
       <div className="gallery-pic">
-        <Link to={`/gallery/${pic.id}`}> 
+        <Link to={`/snap/${pic.id}`}> 
           <img src={pic.canvas_img} />
         </Link>
       </div>

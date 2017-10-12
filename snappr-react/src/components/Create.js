@@ -10,7 +10,8 @@ class Create extends Component {
       constraints: {
         audio: false,
         video: { width: 640, height: 480 }
-      }
+      },
+      fireRedirect: false,
     };
 
     this.snapPicture =  this.snapPicture.bind(this);
@@ -74,6 +75,8 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data); 
+
+    console.log('this is the state in the snap pic funtion', this.state.fireRedirect)
   }
 
   handleSaveClick() {
@@ -87,9 +90,15 @@ class Create extends Component {
       method: 'POST',
       url: 'http://localhost:3001/pics',
       data
-    }).then( res => {
-      console.log(res.data);
+    }).then((res) => {
+      console.log('this is the res.date from the save', res.data);
+      this.setState({
+        fireRedirect: true
+      })
+      console.log('this is supposed to be the fireRedirect', this.state.fireRedirect)
     }).catch( err => console.log(err))
+
+
   }
 
 
@@ -108,6 +117,7 @@ class Create extends Component {
         <div className="output">
           <img id="photo" alt="Your photo"/>
           <a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a>
+          {this.state.fireRedirect ? <Redirect push to="/gallery" /> : ''}
         </div>
 
       </div>
