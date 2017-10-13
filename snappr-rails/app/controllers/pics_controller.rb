@@ -1,6 +1,6 @@
 class PicsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create]
 
   def index
     @pics = Pic.all 
@@ -24,7 +24,7 @@ class PicsController < ApplicationController
   end
 
   def destroy
-    @pic = Pic.find(paramds[:id])
+    @pic = Pic.find(params[:id])
 
     if @pic.destroy
       puts "Ok"

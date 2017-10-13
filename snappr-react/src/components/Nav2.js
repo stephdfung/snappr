@@ -49,7 +49,6 @@ class Nav2 extends Component {
       headers: headers
     })
     .then ((res)=>{
-      console.log('this is the returned data for logout ', res)
       if (res.data.success) {
         this.props.loggedOut();
         <Redirect push to={'/'} />
@@ -72,7 +71,8 @@ class Nav2 extends Component {
         </div>
 
         <div className="nav-buttons-align">
-          {this.state.dataLoaded ? this.renderAccountLink() : " " }
+          {/* {this.state.dataLoaded ? this.renderAccountLink() : " " } */}
+          <Link to={"/snap"} className="nav-button">Snap</Link>
           <Link to={"/gallery"} className="nav-button">Gallery</Link>
           <Link onClick={this.logOut} to={"/"} className="nav-button">Log Out</Link>
         </div>

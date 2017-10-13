@@ -80,11 +80,9 @@ class Create extends Component {
 
   handleSaveClick() {
     const canvas = document.querySelector('canvas');
-    
     let data = {
       canvas_img: canvas.toDataURL('image/png')
     }
-
     let headers = {
       'access-token': cookies.get('access-token'),
       'client': cookies.get('client'),
@@ -93,8 +91,6 @@ class Create extends Component {
       'expiry': cookies.get('expiry')
     }
 
-    console.log(headers)
-
     axios({
       method: 'POST',
       url: 'http://localhost:3001/pics',
@@ -102,13 +98,11 @@ class Create extends Component {
       headers: headers
     }).then((res) => {
       console.log('this is the res.date from the save', res.data);
-      this.setState({
-        fireRedirect: true
-      })
-      console.log('this is supposed to be the fireRedirect', this.state.fireRedirect)
     }).catch( err => console.log(err))
 
-
+    this.setState({
+      fireRedirect: true
+    })
   }
 
 
