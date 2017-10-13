@@ -1,6 +1,6 @@
 class PicsController < ApplicationController
 
-  # before_action :autneticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def index
     @pics = Pic.all 

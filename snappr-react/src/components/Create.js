@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import cookies from 'cookies';
 
 class Create extends Component {
   constructor() {
@@ -86,10 +87,19 @@ class Create extends Component {
       canvas_img: canvas.toDataURL('image/png')
     }
 
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    }
+
     axios({
       method: 'POST',
       url: 'http://localhost:3001/pics',
-      data
+      data,
+      headers: headers
     }).then((res) => {
       console.log('this is the res.date from the save', res.data);
       this.setState({

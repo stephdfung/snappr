@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
 
 //importing my componenets here
 import Nav1 from './Components/Nav1';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import cookies from 'cookies';
 import axios from 'axios';
 
 class Login extends Component {
@@ -7,7 +8,7 @@ class Login extends Component {
     super();
     this.state = {
       email: '',
-      password_digest: '',
+      password: '',
       fireRedirect: false,
       user: {}
     }
@@ -29,10 +30,12 @@ class Login extends Component {
 
   handleFormSubmit(event) {
       event.preventDefault();
+
       let data = {
         email: this.state.email,
         password: this.state.password
       }
+
       axios({
         method: 'POST',
         url: 'http://localhost:3001/auth/sign_in',
@@ -48,6 +51,15 @@ class Login extends Component {
         // you need to store those somewhere (state)
         // and then send them with all following requests (in the headers)
         // https://github.com/axios/axios#global-axios-defaults
+
+        //SETTING cookies here to grab the access tokens
+        //these cookies exist within the application and can be used anywhere
+        cookies.set('access-token', res.headers["access-token"]);
+        cookies.set('client', res.headers["client"]);
+        cookies.set('token-type', res.headers["token-type"]);
+        cookies.set('uid', res.headers["uid"]);
+        cookies.set('expiry', res.headers["expiry"]);
+
 
         this.props.currentUser(res.data);
 
