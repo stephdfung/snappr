@@ -14,6 +14,7 @@ class PicsController < ApplicationController
 
   def create
     @pic = Pic.new(pic_params)
+    @pic.user_id = current_user.id
 
     if @pic.save
       puts "Ok"
@@ -37,6 +38,6 @@ class PicsController < ApplicationController
   private
 
   def pic_params
-    params.permit(:canvas_img)
+    params.permit(:canvas_img, :user_id)
   end
 end

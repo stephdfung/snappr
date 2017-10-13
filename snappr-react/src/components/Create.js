@@ -8,6 +8,7 @@ class Create extends Component {
     super();
     
     this.state = {
+      pic_id: '',
       constraints: {
         audio: false,
         video: { width: 640, height: 480 }
@@ -19,6 +20,7 @@ class Create extends Component {
     this.snapPicture =  this.snapPicture.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
     this.clearPicture = this.clearPicture.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
   }
 
   componentDidMount() {
@@ -56,11 +58,14 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data);  
+
+    console.log('CLEAR PICTURE FUNC RUNNING ', this)
   }
 
   handleStartClick(event) {
     event.preventDefault();
     this.snapPicture();
+    console.log('INSIDE HANDLE CLICK START TO SNAP PIC FUNCTION ', this)
   }
 
   snapPicture() {
@@ -76,13 +81,21 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data); 
+    
+    console.log('INSIDE SNAPPIC FUNCTION ', this)
   }
 
-  handleSaveClick() {
+  handleSaveClick(event) {
+    event.preventDefault();
+
+    console.log('INSIDE HANDLE CLICKSAVE.. ', this)
     const canvas = document.querySelector('canvas');
+
     let data = {
+      user_id: this.props.user.id,
       canvas_img: canvas.toDataURL('image/png')
     }
+
     let headers = {
       'access-token': cookies.get('access-token'),
       'client': cookies.get('client'),
@@ -97,7 +110,10 @@ class Create extends Component {
       data,
       headers: headers
     }).then((res) => {
-      console.log('this is the res.date from the save', res.data);
+      console.log('RESPONSE DATA AFTER SAVING PIC ---> ', res.data);
+      this.setState({
+        pic_id: res.data.id
+      })
     }).catch( err => console.log(err))
 
     this.setState({
@@ -121,7 +137,7 @@ class Create extends Component {
         <div className="output">
           <img id="photo" alt="Your photo"/>
           <a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a>
-          {this.state.fireRedirect ? <Redirect push to="/gallery" /> : ''}
+          {this.state.fireRedirect ? <Redirect push to={`/snap/${this.state.pic_id}`} /> : ''}
         </div>
 
       </div>

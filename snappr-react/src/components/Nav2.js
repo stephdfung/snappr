@@ -13,20 +13,7 @@ class Nav2 extends Component {
     this.renderAccountLink = this.renderAccountLink.bind(this)
     this.logOut = this.logOut.bind(this)
   }
-  logOut() {
-      axios({
-        method: 'DELETE',
-        url: 'http://localhost:3001/auth/logout'
-      })
-      .then ((res)=>{
-        if (res.data.loggedOut) {
-          this.props.loggedOut();
-          <Redirect push to={'/'} />
-        }
-      })
-    }
   
-
   componentDidMount(){
       this.setState({
         dataLoaded: true

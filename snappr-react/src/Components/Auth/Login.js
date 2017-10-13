@@ -54,26 +54,11 @@ class Login extends Component {
 
         //SETTING cookies here to grab the access tokens
         //these cookies exist within the application and can be used anywhere
-
-        console.log('the response',res)
-
         cookies.set('access-token', res.headers["access-token"]);
         cookies.set('client', res.headers["client"]);
         cookies.set('token-type', res.headers["token-type"]);
         cookies.set('uid', res.headers["uid"]);
         cookies.set('expiry', res.headers["expiry"]);
-
-        console.log('these are supposed to be the headers ', res.headers)
-
-        let headers = {
-          'access-token': cookies.get('access-token'),
-          'client': cookies.get('client'),
-          'token-type': cookies.get('token-type'),
-          'uid': cookies.get('uid'),
-          'expiry': cookies.get('expiry')
-        };
-
-        console.log(headers)
 
         this.props.currentUser(res.data);
 

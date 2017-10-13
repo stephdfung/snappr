@@ -60,8 +60,8 @@ class App extends Component {
           <Route path="/" component={this.Nav} />
 
           <Route exact path="/" component={Landing} />
-          <Route exact path="/snap" component={Create} />
-          <Route exact path="/snap/:id" render={(props) => <ShowDestroy {...props} currentUser={this.currentUser} /> } />
+          <Route exact path="/snap" render={(props) => <Create {...props} user={this.state.user} /> } />
+          <Route exact path="/snap/:id" render={(props) => <ShowDestroy {...props} user={this.state.user} /> } />
           <Route exact path="/gallery" component={Gallery} />
 
           <Route exact path="/auth/login" render={(props) => <Login {...props} currentUser={this.currentUser} /> } />

@@ -9,8 +9,10 @@ class ShowDestroy extends Component {
     this.state={
       pic: '',
       fireRedirect: false,
+      revealDestroy: false,
     };
     this.destroyPic = this.destroyPic.bind(this)
+    this.renderDestroyButton = this.renderDestroyButton.bind(this)
   }
 
   componentDidMount() {
@@ -25,6 +27,13 @@ class ShowDestroy extends Component {
       this.setState({
         pic: res.data,
       })
+      console.log('Comparing user props to user state here!!! ', this.props.user.id, ' ', this.state.pic.user_id)
+      if(this.props.user.id === this.state.pic.user_id) {
+        this.setState({
+          revealDestroy: true,
+        })
+      }
+
     }).catch(err => console.log(err));
   }
 
@@ -53,15 +62,23 @@ class ShowDestroy extends Component {
   }
 
 
+  renderDestroyButton() {
+    console.log('rendering the destroy button')
+    console.log(this.state.revealDestroy)
+
+    return(
+      <button className="delete" onClick={this.destroyPic} >Delete</button>
+    )
+  }
+
 
   render() {
     return (
       <div className="pic-show">
         <img src={this.state.pic.canvas_img} alt='' />
-        <button className="delete" onClick={this.destroyPic} >Delete</button>
-              {this.state.fireRedirect
-                ? <Redirect push to="/gallery" />
-                : ''}
+        {this.state.revealDestroy ? this.renderDestroyButton() : ''}
+
+        {this.state.fireRedirect ? <Redirect push to="/gallery" /> : ''}
       </div>
     )
   }
