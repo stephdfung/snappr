@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
+import cookies from 'cookies-js';
 
 class Register extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class Register extends Component {
 
   }
   componentDidMount(){
-    console.log(this.state)
+    console.log('Log for this.state once the component has mounted ', this.state)
   }
 
   handleInputChange(event) {
@@ -35,9 +36,8 @@ class Register extends Component {
   handleFormSubmit(event) {
       event.preventDefault();
       console.log('inside handleformsubmit')
+
     if (this.state.password === this.state.password_confirm) {
-      // fetch POST request to server to create new user
-      // redirect to their profile? back two pages?
 
       let data = {
         name: this.state.name,
@@ -45,19 +45,27 @@ class Register extends Component {
         email: this.state.email,
         password: this.state.password
       }
-//routes here are not valid revist
+
       axios({
-        
         method: 'POST',
         url: 'http://localhost:3001/auth/',
         data: data
       })
       .then(res => {
-        console.log('res.data---->',res.data);
+
+        //SETTING cookies here to grab the access tokens
+        //these cookies exist within the application and can be used anywhere
+        cookies.set('access-token', res.headers["access-token"]);
+        cookies.set('client', res.headers["client"]);
+        cookies.set('token-type', res.headers["token-type"]);
+        cookies.set('uid', res.headers["uid"]);
+        cookies.set('expiry', res.headers["expiry"]);
+
+
+        console.log('response data from ',res.data);
+
         this.props.currentUser(res)
         this.setState({
-          newID: res.data.id,
-          //The res.data.id might be wrong here
           fireRedirect: true,
         });
       }).catch(err=> console.log(err));

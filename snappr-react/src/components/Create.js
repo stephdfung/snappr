@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import cookies from 'cookies';
+import cookies from 'cookies-js';
 
 class Create extends Component {
   constructor() {
@@ -12,6 +12,7 @@ class Create extends Component {
         audio: false,
         video: { width: 640, height: 480 }
       },
+
       fireRedirect: false,
     };
 
@@ -63,7 +64,6 @@ class Create extends Component {
   }
 
   snapPicture() {
-
     const canvas = document.querySelector('canvas');  
     const context = canvas.getContext('2d');  
     const video = document.querySelector('video');  
@@ -76,8 +76,6 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data); 
-
-    console.log('this is the state in the snap pic funtion', this.state.fireRedirect)
   }
 
   handleSaveClick() {
@@ -94,6 +92,8 @@ class Create extends Component {
       'uid': cookies.get('uid'),
       'expiry': cookies.get('expiry')
     }
+
+    console.log(headers)
 
     axios({
       method: 'POST',

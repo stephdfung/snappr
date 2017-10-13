@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import cookies from 'cookies';
+import cookies from 'cookies-js';
 import axios from 'axios';
 
 class Login extends Component {

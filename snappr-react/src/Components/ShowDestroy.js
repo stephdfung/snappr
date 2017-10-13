@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import cookies from 'cookies-js';
 import axios from 'axios';
 
 class ShowDestroy extends Component {
@@ -9,6 +10,7 @@ class ShowDestroy extends Component {
       pic: '',
       fireRedirect: false,
     };
+    this.destroyPic = this.destroyPic.bind(this)
   }
 
   componentDidMount() {
@@ -22,21 +24,30 @@ class ShowDestroy extends Component {
     }).then((res) => {
       this.setState({
         pic: res.data,
-        })
-        console.log('THIS IS THE RESPONSE DATA ',res.data)
-        console.log('this is the state in axios', this.state.pic)
+      })
     }).catch(err => console.log(err));
   }
 
   destroyPic() {
     const id = this.props.match.params.id
 
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+
     axios({
       method: 'DELETE',
       url: `http://localhost:3001/pics/${id}`,
-      data: {id}
+      data: {id},
+      headers: headers
     }).then(() => {
-      fireRedirect: true
+      this.setState({
+        fireRedirect: true
+      });
     }).catch( err => {console.log(err)
     });
   }
@@ -47,7 +58,10 @@ class ShowDestroy extends Component {
     return (
       <div className="pic-show">
         <img src={this.state.pic.canvas_img} alt='' />
-
+        <button className="delete" onClick={this.destroyPic} >Delete</button>
+              {this.state.fireRedirect
+                ? <Redirect push to="/gallery" />
+                : ''}
       </div>
     )
   }

@@ -28,13 +28,13 @@ class App extends Component {
 
     this.currentUser = this.currentUser.bind(this)
     this.Nav = this.Nav.bind(this)
-    this.updateHeader = this.updateHeader.bind(this)
+    this.loggedOut = this.loggedOut.bind(this)
   }
 
   Nav({children}) {
     return (
       <div>
-        {this.state.loggedIn ? <Nav1 user={this.state.user} /> : <Nav2 user={this.state.user}/>} {children}
+        {this.state.loggedIn ? <Nav2 user={this.state.user} loggedOut={this.loggedOut} /> : <Nav1 user={this.state.user}/>} {children}
       </div>
     )
   }
@@ -45,15 +45,15 @@ class App extends Component {
       user: res.data,
       loggedIn: true
     })
+    console.log('currentUser function is being called and this is the new data--- >', this.state)
   }
 
-  updateHeader(res) {
+  loggedOut(){
     this.setState({
-      header: res.header,
+      user: {},
+      loggedIn: false,
     })
   }
-
-
 
   render() {
     return (
@@ -66,8 +66,8 @@ class App extends Component {
           <Route exact path="/snap/:id" render={(props) => <ShowDestroy {...props} currentUser={this.currentUser} /> } />
           <Route exact path="/gallery" component={Gallery} />
 
-          <Route exact path="/auth/login" render={(props) => <Login {...props} currentUser={this.currentUser} updateHeader={this.updateHeader}/> } />
-          <Route exact path="/auth/register" render={(props) => <Register {...props} currentUser={this.currentUser} updateHeader={this.updateHeader}/> } />
+          <Route exact path="/auth/login" render={(props) => <Login {...props} currentUser={this.currentUser} /> } />
+          <Route exact path="/auth/register" render={(props) => <Register {...props} currentUser={this.currentUser} /> } />
         
           <Route path="/" component={Footer} />
         </div>

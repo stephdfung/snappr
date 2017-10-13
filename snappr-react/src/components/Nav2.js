@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { Link , Redirect} from 'react-router-dom';
 import axios from 'axios';
+import cookies from 'cookies-js';
 
 class Nav2 extends Component {
   
   constructor(){
     super();
     this.state = {
-      user: {},
       dataLoaded: false,
     }
     this.renderAccountLink = this.renderAccountLink.bind(this)
@@ -15,7 +15,7 @@ class Nav2 extends Component {
   }
   logOut() {
       axios({
-        method: 'GET',
+        method: 'DELETE',
         url: 'http://localhost:3001/auth/logout'
       })
       .then ((res)=>{
@@ -29,15 +29,24 @@ class Nav2 extends Component {
 
   componentDidMount(){
       this.setState({
-        user: this.props.user,
         dataLoaded: true
       })
   }
 
   logOut() {
+
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+
     axios({
-      method: 'GET',
-      url: 'http://localhost:3001/auth/logout'
+      method: 'DELETE',
+      url: 'http://localhost:3001/auth/sign_out',
+      headers: headers
     })
     .then ((res)=>{
       if (res.data.loggedOut) {
