@@ -49,7 +49,8 @@ class Nav2 extends Component {
       headers: headers
     })
     .then ((res)=>{
-      if (res.data.loggedOut) {
+      console.log('this is the returned data for logout ', res)
+      if (res.data.success) {
         this.props.loggedOut();
         <Redirect push to={'/'} />
       }

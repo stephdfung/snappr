@@ -21,9 +21,7 @@ class App extends Component {
     super();
     this.state = {
       user: {},
-      loggedIn: true,
-      header: {},
-
+      loggedIn: false,
     }
 
     this.currentUser = this.currentUser.bind(this)

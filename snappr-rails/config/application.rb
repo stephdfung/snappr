@@ -20,7 +20,8 @@ module SnapprRails
   class Application < Rails::Application
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.middleware.insert_before 0, Rack::Cors do 
+    # config.middleware.insert_before 0, Rack::Cors do 
+    config.middleware.use Rack::Cors do
       allow do
         origins '*'
         # resource '*', :headers => :any, :methods => [:get, :post, :options, :delete]
