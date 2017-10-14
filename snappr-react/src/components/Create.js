@@ -9,6 +9,7 @@ class Create extends Component {
     
     this.state = {
       pic_id: '',
+      cameraDisplay: true,
       constraints: {
         audio: false,
         video: { width: 640, height: 480 }
@@ -21,6 +22,8 @@ class Create extends Component {
     this.handleStartClick = this.handleStartClick.bind(this);
     this.clearPicture = this.clearPicture.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.twoMethodsCall = this.twoMethodsCall.bind(this);
+    this.showCanvas = this.showCanvas.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +47,9 @@ class Create extends Component {
       .catch((err) => {
         console.log(err);
       })
+
+      let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+      canvas.style.display = 'none'
       
     this.clearPicture();
   }
@@ -58,17 +64,19 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data);  
-
-    console.log('CLEAR PICTURE FUNC RUNNING ', this)
   }
 
   handleStartClick(event) {
     event.preventDefault();
     this.snapPicture();
-    console.log('INSIDE HANDLE CLICK START TO SNAP PIC FUNCTION ', this)
   }
 
   snapPicture() {
+    this.setState({
+      cameraDisplay: false,
+    })
+
+
     const canvas = document.querySelector('canvas');  
     const context = canvas.getContext('2d');  
     const video = document.querySelector('video');  
@@ -81,8 +89,8 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data); 
+
     
-    console.log('INSIDE SNAPPIC FUNCTION ', this)
   }
 
   handleSaveClick(event) {
@@ -120,6 +128,26 @@ class Create extends Component {
       fireRedirect: true
     })
   }
+  
+  showCanvas() {
+    let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+    canvas.style.display = 'inline'
+  }
+
+
+  twoMethodsCall(event) {
+    this.handleStartClick(event);
+    this.showCanvas();
+  }
+
+  renderCamera() {
+    return (
+      <div className="camera">
+        <video id="video"></video>
+        <a id="startButton" onClick={ this.twoMethodsCall }>Take photo</a>
+      </div>
+    )
+  }
 
 
   render() {
@@ -127,14 +155,11 @@ class Create extends Component {
 
       <div className="capture">
 
-        <div className="camera">
-          <video id="video"></video>
-          <a id="startButton" onClick={ this.handleStartClick }>Take photo</a>
-        </div>
+        {this.state.cameraDisplay ? this.renderCamera() : " "}
 
         <canvas id="canvas" hidden></canvas>
 
-        <div className="output">
+        <div className="output hidden">
           <img id="photo" alt="Your photo"/>
           <a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a>
           {this.state.fireRedirect ? <Redirect push to={`/snap/${this.state.pic_id}`} /> : ''}
