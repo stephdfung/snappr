@@ -26,6 +26,17 @@ class Create extends Component {
     this.showCanvas = this.showCanvas.bind(this);
   }
 
+  componentWillMount () {
+    const script = document.createElement("script");
+
+    script.src = "/stickerbomb.min.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    // this.hello()
+  }
+
   componentDidMount() {
     console.log("Loaded component")
 
@@ -89,6 +100,7 @@ class Create extends Component {
     
     const data = canvas.toDataURL('image/png');  
     photo.setAttribute('src', data); 
+    //this is where the photo is getting added to the img tag in the HMTL
 
     
   }
@@ -150,6 +162,44 @@ class Create extends Component {
   }
 
 
+  // hello() {
+  //   stickerbomb({
+  //     target: '#target',
+  //     backdrops: [ 'images/laptop.jpg' ],
+  //     stickers: {
+  //         'Stickers': [
+  //             {
+  //                 name: 'Angular',
+  //                 src: 'images/angular.png',
+  //                 widthPercentage: 15
+  //             },
+   
+  //             {
+  //                 name: 'WordPress',
+  //                 src: 'images/wordpress.png',
+  //                 widthPercentage: 15
+  //             }
+  //         ],
+  //         'Accessories': [
+  //             {
+  //                 name: 'Bag',
+  //                 src: 'images/bag.png',
+  //                 widthPercentage: 60
+  //             },
+   
+  //             {
+  //                 name: 'Tattoo',
+  //                 src: 'images/tattoo.png',
+  //                 widthPercentage: 30
+  //             }
+  //         ]
+  //     }
+  // });
+  
+  // }
+
+
+
   render() {
     return(
 
@@ -161,6 +211,7 @@ class Create extends Component {
 
         <div className="output hidden">
           <img id="photo" alt="Your photo"/>
+          
           <a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a>
           {this.state.fireRedirect ? <Redirect push to={`/snap/${this.state.pic_id}`} /> : ''}
         </div>

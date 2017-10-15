@@ -7,10 +7,14 @@
     "cookies": "^0.7.1",
     "cookies-js": "^1.2.3",
     "fabric": "^1.7.19",
+    "node-gyp": "^3.6.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-fabricjs": "^0.1.6",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "react-sketchpad": "0.0.3",
+    "rebuild": "^0.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
