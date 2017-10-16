@@ -34,8 +34,10 @@ class ShowDestroy extends Component {
           revealDestroy: true,
         })
       }
-
     }).catch(err => console.log(err));
+
+    document.body.style.backgroundColor = '#F1F1F1'
+    document.body.className="body-component-b"
   }
 
   destroyPic() {
@@ -68,17 +70,20 @@ class ShowDestroy extends Component {
     console.log(this.state.revealDestroy)
 
     return(
-      <button className="delete" onClick={this.destroyPic} >Delete</button>
+      <center>
+        <button className="delete" onClick={this.destroyPic} >Delete</button>
+      </center>
     )
   }
 
 
   render() {
     return (
+      <div>
       <div className="pic-show">
         <img src={this.state.pic.canvas_img} alt='' />
-        {this.state.revealDestroy ? this.renderDestroyButton() : ''}
-
+      </div>
+        {!this.state.revealDestroy ? this.renderDestroyButton() : ''}
         {this.state.fireRedirect ? <Redirect push to="/gallery" /> : ''}
       </div>
     )

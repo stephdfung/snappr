@@ -6,7 +6,7 @@ const Nav = () => {
       <div className="nav">
 
         {/* <div className="lock-up"> */}
-          <Link to={`/`}> <h5>snappr</h5> </Link>
+          <Link to={`/`}> <h5>snappr!</h5> </Link>
         {/* </div> */}
 
         <div className="nav-buttons-align">

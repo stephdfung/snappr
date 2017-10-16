@@ -25,12 +25,15 @@ class Gallery extends Component {
       })
       console.log(res.data);
     }).catch( err => console.log(err))
+
+    document.body.style.backgroundColor = '#F1F1F1'
+    document.body.className="body-component-b"
   }
 
   showGallery(pic) {
     return(
       <div className="gallery-pic-container">
-        <Link to={`/snap/${pic.id}`}> 
+        <Link className="link-pic" to={`/snap/${pic.id}`}> 
           <img className="gallery-img" src={pic.canvas_img} />
         </Link>
       </div>

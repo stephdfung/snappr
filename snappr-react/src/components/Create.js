@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import cookies from 'cookies-js';
+// import {Canvas, Circle, Image, Path, Text} from 'react-fabricjs';
+import { SketchPad, TOOL_PENCIL } from 'react-sketchpad/lib';
 
 class Create extends Component {
   constructor() {
@@ -24,6 +26,8 @@ class Create extends Component {
     this.handleSaveClick = this.handleSaveClick.bind(this);
     this.twoMethodsCall = this.twoMethodsCall.bind(this);
     this.showCanvas = this.showCanvas.bind(this);
+    this.retakeClick = this.retakeClick.bind(this);
+    this.showCamera = this.showCamera.bind(this);
   }
 
   componentWillMount () {
@@ -63,6 +67,8 @@ class Create extends Component {
       canvas.style.display = 'none'
       
     this.clearPicture();
+    document.body.style.backgroundColor = '#F1F1F1'
+    document.body.className="body-component-b"
   }
 
   clearPicture() {
@@ -146,17 +152,39 @@ class Create extends Component {
     canvas.style.display = 'inline'
   }
 
+  hideCanvas() {
+    let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+    canvas.style.display = 'none'
+  }
+
+  showCamera(event) {
+    event.preventDefault();
+    this.setState({
+
+      cameraDisplay: true
+    })
+    console.log(this.state)
+  }
 
   twoMethodsCall(event) {
     this.handleStartClick(event);
     this.showCanvas();
   }
 
+  retakeClick(event) {
+    event.preventDefault();
+    this.hideCanvas();
+    this.showCamera(event);
+
+  }
+
   renderCamera() {
     return (
-      <div className="camera">
-        <video id="video"></video>
-        <a id="startButton" onClick={ this.twoMethodsCall }>Take photo</a>
+      <div>
+        <center><a id="startButton" onClick={ this.twoMethodsCall }>SNAP</a></center>
+        <div className="camera">
+          <video id="video"></video>
+        </div>
       </div>
     )
   }
@@ -210,9 +238,11 @@ class Create extends Component {
         <canvas id="canvas" hidden></canvas>
 
         <div className="output hidden">
-          <img id="photo" alt="Your photo"/>
-          
-          <a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a>
+          <center><a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a></center>
+          <div className="camera-pic">
+            <img id="photo" alt="Your photo"/>
+          </div>
+          <center><a id="startButton" onClick={ this.retakeClick }> Retake </a> </center>
           {this.state.fireRedirect ? <Redirect push to={`/snap/${this.state.pic_id}`} /> : ''}
         </div>
 
