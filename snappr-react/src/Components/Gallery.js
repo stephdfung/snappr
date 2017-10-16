@@ -29,9 +29,9 @@ class Gallery extends Component {
 
   showGallery(pic) {
     return(
-      <div className="gallery-pic">
+      <div className="gallery-pic-container">
         <Link to={`/snap/${pic.id}`}> 
-          <img src={pic.canvas_img} />
+          <img className="gallery-img" src={pic.canvas_img} />
         </Link>
       </div>
     )
@@ -47,8 +47,10 @@ class Gallery extends Component {
 
   render() {
     return (
-      <div className="gallery">
-        {this.state.picsLoaded ? this.state.pics.map(this.showGallery) : this.loadingMessage}
+      <div className="gallery-container">
+        <div className="gallery">
+          {this.state.picsLoaded ? this.state.pics.map(this.showGallery) : this.loadingMessage}
+        </div>
       </div>
     )
   }
