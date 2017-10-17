@@ -18,7 +18,8 @@ class Register extends Component {
 
   }
   componentDidMount(){
-    console.log('Log for this.state once the component has mounted ', this.state)
+    document.body.style.backgroundColor = '#FCA311'
+    document.body.className="body-component-a"
   }
 
   handleInputChange(event) {
@@ -86,8 +87,10 @@ class Register extends Component {
     return(
       <div className="login-register">
 
-        <div className="top">
-          <h3>Register</h3>
+        <div className="title">
+          <hr className="left" />
+            <h2>Register</h2>
+          <hr className="right" />
         </div>
 
         <div className="form">
@@ -130,6 +133,7 @@ class Register extends Component {
               onChange={(event)=> {this.handleInputChange(event)}}
             />
             <input
+              className="submit"
               type="submit"
               value="Register"
             />

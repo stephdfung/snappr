@@ -24,6 +24,15 @@ class PicsController < ApplicationController
     end
   end
 
+  def edit
+    @pic = Pic.find(params[:id])
+  end
+
+  def update
+    @pic = Pic.find(params[:id])
+    @pic.update(pic_params)
+  end
+
   def view
     image = Pic.find(params[:id])
     png = Base64.decode64(image.canvas_img["data:image/png;base64,".length .. -1])

@@ -80,7 +80,7 @@ class Create extends Component {
     context.fillRect(0, 0, width, height);
     
     const data = canvas.toDataURL('image/png');  
-    // photo.setAttribute('src', data);  
+    photo.setAttribute('src', data);  
   }
 
   handleStartClick(event) {
@@ -112,51 +112,52 @@ class Create extends Component {
     context.drawImage(video, 0, 0, width, height);
     
     const data = canvas.toDataURL('image/png');  
-    
-    axios({
-      method: 'POST',
-      url: 'http://localhost:3001/pics',
-      data,
-      headers: headers
-    }).then((res) => {
-      console.log('RESPONSE DATA AFTER SAVING PIC ---> ', res.data);
-      this.setState({
-        pic_id: res.data.id
-      })
-    }).catch( err => console.log(err))
+    photo.setAttribute('src', data);  
 
-    window.stickerbomb({
-      target: '#camera-pic',
-      backdrops: [`http://localhost:3001/images/${this.state.pic_id}.png`],
-      stickers: {
-        'Stickers': [
-            {
-                name: 'Angular',
-                src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
-                widthPercentage: 15
-            },
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://localhost:3001/pics',
+    //   data,
+    //   headers: headers
+    // }).then((res) => {
+    //   console.log('RESPONSE DATA AFTER SAVING PIC ---> ', res.data);
+    //   this.setState({
+    //     pic_id: res.data.id
+    //   })
+    // }).catch( err => console.log(err))
+
+    // window.stickerbomb({
+    //   target: '#camera-pic',
+    //   backdrops: [`http://localhost:3001/images/${this.state.pic_id}.png`],
+    //   stickers: {
+    //     'Stickers': [
+    //         {
+    //             name: 'Angular',
+    //             src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
+    //             widthPercentage: 15
+    //         },
     
-            {
-                name: 'WordPress',
-                src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
-                widthPercentage: 15
-            }
-        ],
-        'Accessories': [
-            {
-                name: 'Bag',
-                src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
-                widthPercentage: 60
-            },
+    //         {
+    //             name: 'WordPress',
+    //             src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
+    //             widthPercentage: 15
+    //         }
+    //     ],
+    //     'Accessories': [
+    //         {
+    //             name: 'Bag',
+    //             src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
+    //             widthPercentage: 60
+    //         },
     
-            {
-                name: 'Tattoo',
-                src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
-                widthPercentage: 30
-            }
-        ]
-      }
-    });
+    //         {
+    //             name: 'Tattoo',
+    //             src: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0007.png',
+    //             widthPercentage: 30
+    //         }
+    //     ]
+    //   }
+    // });
 
     //this is where the photo is getting added to the img tag in the HMTL
   }
@@ -166,7 +167,7 @@ class Create extends Component {
     event.preventDefault();
 
     console.log('INSIDE HANDLE CLICKSAVE.. ', this)
-    const canvas = document.querySelector('sb_canvas');
+    const canvas = document.querySelector('canvas');
 
     let data = {
       user_id: this.props.user.id,
@@ -182,7 +183,7 @@ class Create extends Component {
     }
 
     axios({
-      method: 'PUT',
+      method: 'POST',
       url: 'http://localhost:3001/pics',
       data,
       headers: headers
@@ -252,7 +253,7 @@ class Create extends Component {
         <div className="output hidden">
           <center><a id="saveButton"onClick={ this.handleSaveClick }>Save Photo</a></center>
           <div className="camera-pic" id='camera-pic'>
-            {/* <img id="photo" alt="Your photo"/> */}
+            <img id="photo" alt="Your photo"/>
           </div>
           <center><a id="startButton" onClick={ this.retakeClick }> Retake </a> </center>
           {this.state.fireRedirect ? <Redirect push to={`/snap/${this.state.pic_id}`} /> : ''}
