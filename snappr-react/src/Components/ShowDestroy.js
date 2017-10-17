@@ -83,7 +83,7 @@ class ShowDestroy extends Component {
       <div className="pic-show">
         <img src={this.state.pic.canvas_img} alt='' />
       </div>
-        {!this.state.revealDestroy ? this.renderDestroyButton() : ''}
+        {this.state.revealDestroy ? this.renderDestroyButton() : ''}
         {this.state.fireRedirect ? <Redirect push to="/gallery" /> : ''}
       </div>
     )
