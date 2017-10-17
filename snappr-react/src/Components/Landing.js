@@ -28,8 +28,8 @@ class Landing extends Component {
               <p>Want in? Get started below!</p>
            </div>
           <div className="hero-buttons">
-            <button>Snap a pic</button>
-            <button>View the gallery</button>
+            <Link to={`/snap`}>Snap a pic</Link>
+            <Link to={`/gallery`}>View the gallery</Link>
           </div>
         </div>
       </div>

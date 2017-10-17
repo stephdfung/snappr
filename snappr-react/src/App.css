@@ -115,47 +115,131 @@ hr {
 .p-container {
   padding: 20px;
   text-align: center;
-  font-size: 12pt;
 }
 
-.p-container > p:nth-child(1)  {
-  overflow: hidden;
-  border-right: .15em solid #000;
+.p-container p{
+  font-size: 14pt;
+  width: 35em;
   white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-}
-
-.p-container > p:nth-child(2)  {
   overflow: hidden;
-  border-right: .15em solid #000;
-  white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type 5s steps(40, end);
 }
 
-.p-container > p:nth-child(3)  {
+.p-container p:nth-child(2) {
+  white-space: nowrap;
   overflow: hidden;
-  border-right: .15em solid #000;
+  opacity: 0;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type2 5s steps(40, end);
+  -webkit-animation-delay: 5s;
+  animation-delay: 5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.p-container p:nth-child(3) {
   white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type3 5s steps(40, end);
+  -webkit-animation-delay: 10s;
+  animation-delay: 10s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
-@keyframes typing {
-  from {width: 0}
-  to {width: 100%}
+@keyframes type {
+  from {
+    width: 0;
+  }
 }
 
-@keyframes blink-caret {
-  from, to {border-color: transparent}
-  50% {border-color: #000}
+@-webkit-keyframes type {
+  from {
+    width: 0;
+  }
 }
 
-.hero-buttons > button {
+span {
+  animation: blink 1s infinite;
+}
+
+@keyframes type2 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes type2 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes type3 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes type3 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.hero-buttons a {
   border: 1px solid #FCA311;
   border-radius: 5px;
   background-color: #fff;
@@ -163,6 +247,13 @@ hr {
   text-transform: uppercase;
   padding: 5px 10px 5px 10px;
   margin: 10px;
+  font-size: 12px;
+}
+
+.hero-buttons a:hover {
+  background-color: #FCA311;
+  color: #fff;
+  transition: 1s ease;
 }
 
 .gallery-container {
@@ -191,7 +282,11 @@ hr {
 }
 
 .gallery-pic-container:hover {
-  margin: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.30), 0 7px 10px rgba(0,0,0,0.30);
+}
+
+.gallery-img:hover{
+  filter:
 }
 
 video#video, img#photo {
