@@ -58,10 +58,15 @@ class Nav2 extends Component {
         </div>
 
         <div className="nav-buttons-align">
+          <div>
           {/* {this.state.dataLoaded ? this.renderAccountLink() : " " } */}
-          <Link to={"/snap"} className="nav-button">Snap</Link>
-          <Link to={"/gallery"} className="nav-button">Gallery</Link>
-          <Link onClick={this.logOut} to={"/"} className="nav-button">Log Out</Link>
+            <Link to={"/snap"} className="nav-button">Snap</Link>
+            <Link to={"/gallery"} className="nav-button">Gallery</Link>
+          </div>
+
+          <div>
+            <Link onClick={this.logOut} to={"/auth/login"} className="nav-button">Log Out</Link>
+          </div>
         </div>
 
 

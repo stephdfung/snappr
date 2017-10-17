@@ -16,7 +16,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    console.log('INSIDE LOGIN.JS')
+    document.body.style.backgroundColor = '#FCA311'
+    document.body.className="body-component-a"
   }
 
   handleInputChange(event) {
@@ -80,8 +81,10 @@ class Login extends Component {
     return(
       <div className="login-register">
 
-        <div className="top">
-          <h3>Login</h3>
+        <div className="title">
+          <hr className="left" />
+            <h2>Login</h2>
+          <hr className="right" />
         </div>
 
         <div className="form">

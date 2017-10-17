@@ -1,7 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
 .nav {
   position: sticky;
   width: 100%;
-  background-color: #F9EBA9;
+  background-color: #fff;
   height: 50px;
   display: flex;
   flex-direction: row;
@@ -11,31 +13,247 @@
 }
 
 h5 {
-  font-family: Helvetica, sans-serif;
+  font-family: "Lato", sans-serif;
   font-style: italic;
-  color: #fff;
+  font-weight: 900;
+  color: #FCA311;
   text-transform: uppercase;
   font-size: 20px;
   margin: 15px 5px 10px 0;
 }
 
-.nav-buttons-align > a {
+.nav-buttons-align {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-button:hover, .nav-button:active {
+  border-top: 4px solid #FCA311;
+  color: #FCA311;
+  transition: .5s ease-in-out;
+}
+
+.nav-button {
+  padding: 15px;
   display: inline-block;
   color: #343434;
   text-transform: uppercase;
-  font-style: italic;
-  font-size: 14px;
-  margin: 18px 5px 18px 5px;
+  letter-spacing: 1px;
+  font-weight: 900;
+  font-size: 12px;
+  border-top: 4px solid #fff;
 }
 
-body {
+body, .body-component-b {
   background-color: #F1F1F1;
   color: #343434;
+  font-family: "Lato", sans-serif;
 }
+
+/* https://codepen.io/codycurley/pen/bdqevE */
+/* https://www.gradient-animator.com/ */
+.body-component-a {
+  background: linear-gradient(268deg, #fca311, #ffcf80, #fca311, #ce8000);
+  background-size: 800% 800%;
+  
+  -webkit-animation: background 11s ease infinite;
+  -moz-animation: background 11s ease infinite;
+  animation: background 11s ease infinite;
+}
+  
+  @-webkit-keyframes background {
+      0%{background-position:0% 51%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 51%}
+  }
+  @-moz-keyframes background {
+      0%{background-position:0% 51%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 51%}
+  }
+  @keyframes background { 
+      0%{background-position:0% 51%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 51%}
+  }
 
 a, a:visited, a:active {
   text-decoration: none;
   color: #343434;
+}
+
+.hero, .login-register {
+  background-color: #fff;
+  width: 700px;
+  margin: 100px auto;
+  padding: 20px;
+  color: #FCA311;
+  text-align: center;
+}
+
+hr {
+  height: 0px;
+  width: 30%;
+  border: 0;
+  display: inline-block;
+  border-bottom: 1px solid #FCA311;
+  margin: 50px 20px 10px 20px;;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.title > h1 {
+  display: inline-block;
+  padding: 5px;
+}
+
+.p-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.p-container p{
+  font-size: 14pt;
+  width: 35em;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type 5s steps(40, end);
+}
+
+.p-container p:nth-child(2) {
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type2 5s steps(40, end);
+  -webkit-animation-delay: 5s;
+  animation-delay: 5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.p-container p:nth-child(3) {
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-animation: type 5s steps(40, end);
+  animation: type3 5s steps(40, end);
+  -webkit-animation-delay: 10s;
+  animation-delay: 10s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes type {
+  from {
+    width: 0;
+  }
+}
+
+@-webkit-keyframes type {
+  from {
+    width: 0;
+  }
+}
+
+span {
+  animation: blink 1s infinite;
+}
+
+@keyframes type2 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes type2 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes type3 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes type3 {
+  0% {
+    width: 0;
+  }
+  from {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.hero-buttons a {
+  border: 1px solid #FCA311;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #FCA311;
+  text-transform: uppercase;
+  padding: 5px 10px 5px 10px;
+  margin: 10px;
+  font-size: 12px;
+}
+
+.hero-buttons a:hover {
+  background-color: #FCA311;
+  color: #fff;
+  transition: 1s ease;
 }
 
 .gallery-container {
@@ -52,12 +270,86 @@ a, a:visited, a:active {
 }
 
 .gallery-pic-container {
-  padding: 20px;
+  padding: 5px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  position: relative;
 }
 
 .gallery-img {
   width: 100%;
+  display: block;
 }
 
+.gallery-pic-container:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.30), 0 7px 10px rgba(0,0,0,0.30);
+}
+
+.gallery-img:hover{
+  filter:
+}
+
+video#video, img#photo {
+  border: 15px white solid;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.camera, .camera-pic {
+  margin: 0 auto;
+  display: block;
+  width: 640px;
+  padding: 20px;
+}
+
+#startButton, #saveButton {
+  padding: 5px 20px 5px 20px;
+  height: 15px;
+  width: 45px;
+  background-color: #FCA311;
+  border: none;
+  margin: 5px;
+  border-radius: 5px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.delete, .submit {
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  background-color: #FCA311;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.pic-show {
+  margin: 0 auto;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+  width: 640px;
+}
+
+input {
+  width: 100px;
+  display: inline-block;
+  border: 1px solid #FCA311;
+  padding: 5px;
+  margin: 10px;
+}
+
+input::-webkit-input-placeholder {
+  color: #fca311;
+  text-transform: uppercase;
+}
+
+h2 {
+  text-transform: uppercase;
+  color: #000;
+  letter-spacing: 2px;
+  display: inline-block;
+  padding: 5px;
+  margin-top: 30px;
+}
