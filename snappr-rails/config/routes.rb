@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   root to: "pics#index"
 
   resources :pics
+  get "images/:id", to: "pics#view"
   resources :posts, only: [:index, :new, :create]
 end
