@@ -1,13 +1,29 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Component, MouseEvent } from 'react';
+import { Redirect } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import cookies from 'cookies-js';
 // import {Canvas, Circle, Image, Path, Text} from 'react-fabricjs';
 import { SketchPad, TOOL_PENCIL } from 'react-sketchpad/lib';
+import { User } from '../types/models';
 
-class Create extends Component {
-  constructor() {
-    super();
+interface CreateProps extends RouteComponentProps {
+  user: User;
+}
+
+interface CreateState {
+  pic_id: number | '';
+  cameraDisplay: boolean;
+  constraints: {
+    audio: boolean;
+    video: { width: number; height: number };
+  };
+  fireRedirect: boolean;
+}
+
+class Create extends Component<CreateProps, CreateState> {
+  constructor(props: CreateProps) {
+    super(props);
     
     this.state = {
       pic_id: '',
@@ -30,7 +46,7 @@ class Create extends Component {
     this.showCamera = this.showCamera.bind(this);
   }
 
-  componentWillMount () {
+  componentDidMount() {
     const script = document.createElement("script");
 
     script.src = "/stickerbomb.min.js";
@@ -39,22 +55,20 @@ class Create extends Component {
     document.body.appendChild(script);
 
     // this.hello()
-  }
 
-  componentDidMount() {
     console.log("Loaded component")
     // console.log(stickerbomb,'stickers<------')
     const constraints = this.state.constraints;
-    const getUserMedia = (params) => (
-      new Promise((successCallback, errorCallback) => {
+    const getUserMedia = (params: MediaStreamConstraints) => (
+      new Promise<MediaStream>((successCallback, errorCallback) => {
         navigator.webkitGetUserMedia.call(navigator, params, successCallback, errorCallback);
       })
     );
 
     getUserMedia(constraints)
       .then((stream) => {
-        const video = document.querySelector('video');
-        const vendorURL = window.url || window.webkitURL;
+        const video = document.querySelector('video')!;
+        const vendorURL = (window.url || window.webkitURL)!;
 
         video.src = vendorURL.createObjectURL(stream);
         video.play();
@@ -63,7 +77,7 @@ class Create extends Component {
         console.log(err);
       })
 
-      let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+      let canvas = document.querySelector<HTMLElement>('#root > div > div.capture > div.output.hidden')!
       canvas.style.display = 'none'
       
     this.clearPicture();
@@ -72,9 +86,9 @@ class Create extends Component {
   }
 
   clearPicture() {
-    const canvas = document.querySelector('canvas');  
-    const photo = document.getElementById('photo');  
-    const context = canvas.getContext('2d');  
+    const canvas = document.querySelector('canvas')!;  
+    const photo = document.getElementById('photo')!;  
+    const context = canvas.getContext('2d')!;  
     const { width, height } = this.state.constraints.video;  
     context.fillStyle = '#FFF';  
     context.fillRect(0, 0, width, height);
@@ -83,7 +97,7 @@ class Create extends Component {
     photo.setAttribute('src', data);  
   }
 
-  handleStartClick(event) {
+  handleStartClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.snapPicture();
   }
@@ -101,10 +115,10 @@ class Create extends Component {
       'expiry': cookies.get('expiry')
     }
 
-    const canvas = document.querySelector('canvas');  
-    const context = canvas.getContext('2d');  
-    const video = document.querySelector('video');  
-    const photo = document.getElementById('photo');  
+    const canvas = document.querySelector('canvas')!;  
+    const context = canvas.getContext('2d')!;  
+    const video = document.querySelector('video')!;  
+    const photo = document.getElementById('photo')!;  
     const { width, height } = this.state.constraints.video;
     
     canvas.width = width;  
@@ -163,11 +177,11 @@ class Create extends Component {
   }
 
 
-  handleSaveClick(event) {
+  handleSaveClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
     console.log('INSIDE HANDLE CLICKSAVE.. ', this)
-    const canvas = document.querySelector('canvas');
+    const canvas = document.querySelector('canvas')!;
 
     let data = {
       user_id: this.props.user.id,
@@ -200,16 +214,16 @@ class Create extends Component {
   }
   
   showCanvas() {
-    let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+    let canvas = document.querySelector<HTMLElement>('#root > div > div.capture > div.output.hidden')!
     canvas.style.display = 'inline'
   }
 
   hideCanvas() {
-    let canvas = document.querySelector('#root > div > div.capture > div.output.hidden')
+    let canvas = document.querySelector<HTMLElement>('#root > div > div.capture > div.output.hidden')!
     canvas.style.display = 'none'
   }
 
-  showCamera(event) {
+  showCamera(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.setState({
 
@@ -218,12 +232,12 @@ class Create extends Component {
     console.log(this.state)
   }
 
-  twoMethodsCall(event) {
+  twoMethodsCall(event: MouseEvent<HTMLAnchorElement>) {
     this.handleStartClick(event);
     this.showCanvas();
   }
 
-  retakeClick(event) {
+  retakeClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.hideCanvas();
     this.showCamera(event);

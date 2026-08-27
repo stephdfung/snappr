@@ -1,12 +1,22 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import { Link , Redirect} from 'react-router-dom';
 import axios from 'axios';
 import cookies from 'cookies-js';
+import { User } from '../types/models';
 
-class Nav2 extends Component {
+interface Nav2Props {
+  user: User;
+  loggedOut: () => void;
+}
+
+interface Nav2State {
+  dataLoaded: boolean;
+}
+
+class Nav2 extends Component<Nav2Props, Nav2State> {
   
-  constructor(){
-    super();
+  constructor(props: Nav2Props){
+    super(props);
     this.state = {
       dataLoaded: false,
     }

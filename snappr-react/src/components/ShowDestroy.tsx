@@ -1,13 +1,24 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Component } from 'react';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import cookies from 'cookies-js';
 import axios from 'axios';
+import { Pic, User } from '../types/models';
 
-class ShowDestroy extends Component {
-  constructor() {
-    super();
+interface ShowDestroyProps extends RouteComponentProps<{ id: string }> {
+  user: User;
+}
+
+interface ShowDestroyState {
+  pic: Partial<Pic>;
+  fireRedirect: boolean;
+  revealDestroy: boolean;
+}
+
+class ShowDestroy extends Component<ShowDestroyProps, ShowDestroyState> {
+  constructor(props: ShowDestroyProps) {
+    super(props);
     this.state={
-      pic: '',
+      pic: {},
       fireRedirect: false,
       revealDestroy: false,
     };

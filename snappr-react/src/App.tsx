@@ -1,24 +1,30 @@
-import React, { Component } from 'react';
+import { Component, ReactNode } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 //importing my componenets here
-import Nav1 from './Components/Nav1';
-import Nav2 from './Components/Nav2';
-import Footer from './Components/Footer';
+import Nav1 from './components/Nav1';
+import Nav2 from './components/Nav2';
+import Footer from './components/Footer';
 
-import Create from './Components/Create';
-import Landing from './Components/Landing';
-import Gallery from './Components/Gallery';
-import ShowDestroy from './Components/ShowDestroy';
+import Create from './components/Create';
+import Landing from './components/Landing';
+import Gallery from './components/Gallery';
+import ShowDestroy from './components/ShowDestroy';
 
-import Login from './Components/Auth/Login';
-import Register from './Components/Auth/Register';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 
+import { User } from './types/models';
 
-class App extends Component {
-  constructor() {
-    super();
+interface AppState {
+  user: User;
+  loggedIn: boolean;
+}
+
+class App extends Component<Record<string, never>, AppState> {
+  constructor(props: Record<string, never>) {
+    super(props);
     this.state = {
       user: {},
       loggedIn: false,
@@ -29,16 +35,16 @@ class App extends Component {
     this.loggedOut = this.loggedOut.bind(this)
   }
 
-  Nav({children}) {
+  Nav({children}: {children?: ReactNode}) {
     return (
       <div>
-        {this.state.loggedIn ? <Nav2 user={this.state.user} loggedOut={this.loggedOut} /> : <Nav1 user={this.state.user}/>} {children}
+        {this.state.loggedIn ? <Nav2 user={this.state.user} loggedOut={this.loggedOut} /> : <Nav1 />} {children}
       </div>
     )
   }
 
 
-  currentUser(res) {
+  currentUser(res: { data: User }) {
     this.setState({
       user: res.data,
       loggedIn: true

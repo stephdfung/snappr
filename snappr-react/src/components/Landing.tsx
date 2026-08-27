@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import Footer from './Footer'
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Landing extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount(){
     document.body.style.backgroundColor = '#FCA311'
     document.body.className="body-component-a"
