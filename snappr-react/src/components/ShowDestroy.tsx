@@ -39,8 +39,8 @@ class ShowDestroy extends Component<ShowDestroyProps, ShowDestroyState> {
         pic: res.data,
       })
       console.log(this)
-      console.log('Comparing user props to user state here!!! ', this.props.user.id, ' ', this.state.pic.user_id)
-      if(this.props.user.id === this.state.pic.user_id) {
+      console.log('Comparing user props to pic data here!!! ', this.props.user.id, ' ', res.data.user_id)
+      if(this.props.user.id === res.data.user_id) {
         this.setState({
           revealDestroy: true,
         })
