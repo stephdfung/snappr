@@ -1,11 +1,23 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Component, ChangeEvent, FormEvent } from 'react';
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
 import cookies from 'cookies-js';
 import axios from 'axios';
+import { User } from '../../types/models';
 
-class Login extends Component {
-  constructor() {
-    super();
+interface LoginProps extends RouteComponentProps {
+  currentUser: (res: { data: User }) => void;
+}
+
+interface LoginState {
+  email: string;
+  password: string;
+  fireRedirect: boolean;
+  user: unknown;
+}
+
+class Login extends Component<LoginProps, LoginState> {
+  constructor(props: LoginProps) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -20,16 +32,16 @@ class Login extends Component {
     document.body.className="body-component-a"
   }
 
-  handleInputChange(event) {
+  handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = event.target.value;
     
     this.setState({
       [name]: value,
-    });
+    } as Pick<LoginState, 'email' | 'password'>);
   }
 
-  handleFormSubmit(event) {
+  handleFormSubmit(event: FormEvent<HTMLFormElement>) {
       event.preventDefault();
 
       let data = {
@@ -69,8 +81,8 @@ class Login extends Component {
             fireRedirect: true
           })
         } else{
-        alert('Inccorect username or password!')
-        event.target.reset();
+        alert('Inccorect username or password!');
+        (event.target as HTMLFormElement).reset();
         }
         
       }).catch(err => console.log(err));
@@ -100,7 +112,7 @@ class Login extends Component {
               type="password"
               placeholder="Password"
               name="password"
-              minLength="8" required 
+              minLength={8} required 
               value={this.state.password}
               onChange={(event)=> {this.handleInputChange(event)}}
             />

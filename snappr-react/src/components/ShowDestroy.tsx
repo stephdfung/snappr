@@ -1,13 +1,24 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Component } from 'react';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import cookies from 'cookies-js';
 import axios from 'axios';
+import { Pic, User } from '../types/models';
 
-class ShowDestroy extends Component {
-  constructor() {
-    super();
+interface ShowDestroyProps extends RouteComponentProps<{ id: string }> {
+  user: User;
+}
+
+interface ShowDestroyState {
+  pic: Partial<Pic>;
+  fireRedirect: boolean;
+  revealDestroy: boolean;
+}
+
+class ShowDestroy extends Component<ShowDestroyProps, ShowDestroyState> {
+  constructor(props: ShowDestroyProps) {
+    super(props);
     this.state={
-      pic: '',
+      pic: {},
       fireRedirect: false,
       revealDestroy: false,
     };
@@ -28,8 +39,8 @@ class ShowDestroy extends Component {
         pic: res.data,
       })
       console.log(this)
-      console.log('Comparing user props to user state here!!! ', this.props.user.id, ' ', this.state.pic.user_id)
-      if(this.props.user.id === this.state.pic.user_id) {
+      console.log('Comparing user props to pic data here!!! ', this.props.user.id, ' ', res.data.user_id)
+      if(this.props.user.id === res.data.user_id) {
         this.setState({
           revealDestroy: true,
         })

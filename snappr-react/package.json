@@ -7,18 +7,27 @@
     "cookies": "^0.7.1",
     "cookies-js": "^1.2.3",
     "fabric": "^1.7.19",
-    "node-gyp": "^3.6.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
-    "react-sketchpad": "0.0.3",
-    "rebuild": "^0.1.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^5.3.4",
+    "react-sketchpad": "0.0.3"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
   }
 }

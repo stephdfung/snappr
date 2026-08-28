@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
+import { Component, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
 import cookies from 'cookies-js';
+import { User } from '../../types/models';
 
-class Register extends Component {
-  constructor() {
-    super();
+interface RegisterProps extends RouteComponentProps {
+  currentUser: (res: { data: User }) => void;
+}
+
+interface RegisterState {
+  name: string;
+  nickname: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+  fireRedirect: boolean;
+}
+
+class Register extends Component<RegisterProps, RegisterState> {
+  constructor(props: RegisterProps) {
+    super(props);
     this.state = {
       name: '',
       nickname: '',
@@ -22,7 +36,7 @@ class Register extends Component {
     document.body.className="body-component-a"
   }
 
-  handleInputChange(event) {
+  handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     let name = event.target.name;
     let value = event.target.value;
 
@@ -31,10 +45,10 @@ class Register extends Component {
 
     this.setState({
       [name]: value,
-    });
+    } as Pick<RegisterState, 'name' | 'nickname' | 'email' | 'password' | 'password_confirm'>);
   }
 
-  handleFormSubmit(event) {
+  handleFormSubmit(event: FormEvent<HTMLFormElement>) {
       event.preventDefault();
       console.log('inside handleformsubmit')
 
@@ -70,7 +84,7 @@ class Register extends Component {
           fireRedirect: true,
         });
       }).catch(err=> console.log(err));
-      event.target.reset();
+      (event.target as HTMLFormElement).reset();
 
     } else {
       alert('Passwords do not match.. THIS IS THE ELSE STATEMENT')
@@ -120,7 +134,7 @@ class Register extends Component {
               type="password"
               placeholder="Password"
               name="password"
-              minLength="8" required 
+              minLength={8} required 
               value={this.state.password}
               onChange={(event)=> {this.handleInputChange(event)}}
             />
@@ -128,7 +142,7 @@ class Register extends Component {
               type="password"
               placeholder="Confirm Password"
               name="password_confirm"
-              minLength="8" required 
+              minLength={8} required 
               value={this.state.password_confirm}
               onChange={(event)=> {this.handleInputChange(event)}}
             />

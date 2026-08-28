@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Pic } from '../types/models';
 
+interface GalleryState {
+  pics: Pic[] | null;
+  picsLoaded: boolean;
+}
 
-class Gallery extends Component {
-  constructor() {
-    super();
+class Gallery extends Component<Record<string, unknown>, GalleryState> {
+  constructor(props: Record<string, unknown>) {
+    super(props);
     this.state = {
       pics: null, 
       picsLoaded: false
@@ -30,7 +35,7 @@ class Gallery extends Component {
     document.body.className="body-component-b"
   }
 
-  showGallery(pic) {
+  showGallery(pic: Pic) {
     return(
       <div className="gallery-pic-container">
         <Link className="link-pic" to={`/snap/${pic.id}`}> 
@@ -52,7 +57,7 @@ class Gallery extends Component {
     return (
       <div className="gallery-container">
         <div className="gallery">
-          {this.state.picsLoaded ? this.state.pics.map(this.showGallery) : this.loadingMessage}
+          {this.state.picsLoaded ? this.state.pics!.map(this.showGallery) : this.loadingMessage()}
         </div>
       </div>
     )
